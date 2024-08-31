@@ -6,8 +6,8 @@ on:
     branches: [ main ]
 
 env:
-  ECR_REPOSITORY: flask-app
-  EKS_CLUSTER_NAME: Kubernetes-demo 
+  ECR_REPOSITORY: e6data
+  EKS_CLUSTER_NAME: e6data
   AWS_REGION: ap-south-1
 
 jobs:
@@ -29,8 +29,8 @@ jobs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-access-key-id: AKIAUBKFCDWTK5Q4KFPN
+        aws-secret-access-key: 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
         aws-region: ${{env.AWS_REGION}}
 
     - name: Login to Amazon ECR
