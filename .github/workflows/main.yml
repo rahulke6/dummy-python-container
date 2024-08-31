@@ -53,5 +53,5 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}        
         IMAGE_TAG: ${{ steps.commit.outputs.short }}
       run: |
-        kubectl apply -fdeployment.yaml
+        kubectl apply -f deployment.yaml
        
