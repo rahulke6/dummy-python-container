@@ -1,75 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: flask-e6data
   labels:
     app: flask-e6data
-  name: flask-e6data
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: flask-e6data
-  strategy: {}
   template:
     metadata:
       labels:
         app: flask-e6data
     spec:
-      serviceAccountName: aws-lb-demo
-      # Required to read AWS account token
-      securityContext:
-        fsGroup: 101
-      volumes:
-        - name: run
-          emptyDir:
-            medium: Memory
-        - name: cache
-          emptyDir:
-            medium: Memory
       containers:
-      - image: 277707103654.dkr.ecr.ap-south-1.amazonaws.com/e6data:latest
-        name: webserver
-        resources:
-          requests:
-            cpu: "100m"
-            memory: "128Mi"
-        volumeMounts:
-          - mountPath: /run
-            name: run
-          - mountPath: /var/cache
-            name: cache
-        env:
-          - name: POD_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.name
-          - name: POD_NAMESPACE
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.namespace
-          - name: APP_NAME
-            valueFrom:
-              fieldRef:
-                fieldPath: metadata.labels['app']
+      - name: flask-e6data
+        image: 277707103654.dkr.ecr.ap-south-1.amazonaws.com/e6data:latest
         ports:
-          - containerPort: 8080
-            protocol: TCP
-          - containerPort: 9080 # PROXY protocol
-            protocol: TCP
-        readinessProbe:
-           httpGet:
-             path: /
-             port: 8080
-        livenessProbe:
-           httpGet:
-             path: /
-             port: 8080
-        securityContext:
-            readOnlyRootFilesystem: true
-            allowPrivilegeEscalation: false
-            runAsNonRoot: true
-            runAsUser: 101
-
-            allowPrivilegeEscalation: false
-            runAsNonRoot: true
-            runAsUser: 101
+        - containerPort: 8080
