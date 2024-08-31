@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: aws-lb-demo-frontend
-  name: aws-lb-demo-frontend
+    app: flask-e6data
+  name: flask-e6data
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: aws-lb-demo-frontend
+      app: flask-e6data
   strategy: {}
   template:
     metadata:
       labels:
-        app: aws-lb-demo-frontend
+        app: flask-e6data
     spec:
       serviceAccountName: aws-lb-demo
       # Required to read AWS account token
@@ -27,7 +27,7 @@ spec:
           emptyDir:
             medium: Memory
       containers:
-      - image: 749049578452.dkr.ecr.us-west-2.amazonaws.com/eks-demo-app:latest
+      - image: 277707103654.dkr.ecr.ap-south-1.amazonaws.com/e6data:latest
         name: webserver
         resources:
           requests:
